@@ -3,24 +3,29 @@ Open-Closed Principle
 
 Classes devem estar fechadas para modificação, mas abertas para extensão
 """
-class Animal:
-    def __init__(self, name: str):
-        self.name = name
+
+from abc import ABC, abstractmethod
+"""
+class Animal(ABC):
+    def __init__(self, name: str, sound: str):
+        self.__name = name
+        self.__sound = sound
     
+    @property
     def get_name(self) -> str:
         pass
 
+    @property
+    def get_sound(self) -> str:
+        pass
+
     def make_sound(self):
-        if self.name == 'lion':
-            print('roar')
-        elif self.name == 'mouse':
-            print('squeak')
-        else:
-            print('...')
+        print(self.__sound)
+
 
 animals = [
-    Animal('lion'),
-    Animal('mouse')
+    Animal('lion', "roar"),
+    Animal('mouse', "squeak")
 ]
 
 def animal_sound(animals: list):
@@ -28,7 +33,7 @@ def animal_sound(animals: list):
         animal.make_sound()
 
 animal_sound(animals)
-
+"""
 
 """
 Outro exemplo:
@@ -38,14 +43,34 @@ usando essa classe abaixo. Quando você decide dar 40% de desconto a clientes VI
 você decide mudar a classe da seguinte forma:
 """
 
-class Discount:
-    def __init__(self, customer, price):
-        self.customer = customer
-        self.price = price
+class Cliente(ABC):
+    def __init__(self, nome: str):
+        self.__nome = nome
+    
+    @abstractmethod
+    def desconto(self):
+        pass
+        
+class ClienteFAV(Cliente):
+    def __init__(self, nome: str):
+        super().__init__(nome)
 
-    def give_discount(self):
-            if self.customer == 'fav':
-                return self.price * 0.2
-            if self.customer == 'vip':
-                return self.price * 0.4
+    def desconto(self, price):
+        return price * 0.8
+
+class ClienteVIP(Cliente):
+    def __init__(self, nome: str):
+        super().__init__(nome)
+
+    def desconto(self, price):
+        return price * 0.6
+
+joao = ClienteFAV("João")
+alfeu = ClienteVIP("Alfeu")
+
+venda1 = joao.desconto(700)
+print(venda1)
+
+venda2 = alfeu.desconto(600)
+print(venda2)
 
