@@ -5,7 +5,7 @@ Classes devem estar fechadas para modificação, mas abertas para extensão
 """
 
 from abc import ABC, abstractmethod
-"""
+
 class Animal(ABC):
     def __init__(self, name: str, sound: str):
         self.__name = name
@@ -33,7 +33,7 @@ def animal_sound(animals: list):
         animal.make_sound()
 
 animal_sound(animals)
-"""
+
 
 """
 Outro exemplo:
@@ -73,4 +73,3 @@ print(venda1)
 
 venda2 = alfeu.desconto(600)
 print(venda2)
-
