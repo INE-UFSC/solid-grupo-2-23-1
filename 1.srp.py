@@ -7,14 +7,22 @@ Uma classe deve ter somente um motivo para mudar
 """
 
 class Animal:
-    def __init__(self, name: str):
-        self.name = name
-        
-    @property    
-    def get_name(self) -> str:
+    def __init__(self, name: str, db: AnimalDB):
+        self.__name = name
+        self.__db = db
+
+    @property
+    def name(self) -> str:
+        return self.__name
+
+    def save(self):
+        self.__db.save(self)
+
+# Banco de dados contendo vários animais.
+class AnimalDB:
+    def __init__(self):
         pass
 
-class Database:
-    # salva no DB
     def save(self, animal: Animal):
+        # Salva no banco de dados.
         pass
