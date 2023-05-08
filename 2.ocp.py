@@ -3,52 +3,47 @@ Open-Closed Principle
 
 Classes devem estar fechadas para modificação, mas abertas para extensão
 """
+
 from abc import ABC, abstractmethod
-class Animal():
-    def __init__(self, name: str, sound: str):
-        self.name = name
-        self.sound = sound
-        
-    
-    @property
-    def get_name(self) -> str:
-        return self.name
+
+
+class Animal(ABC):
+    def __init__(self, name: str):
+        self.__name = name
 
     @property
-    def get_sound(self):
-        return self.sound
+    def name(self) -> str:
+        return self.__name
 
-    
+    @abstractmethod
     def make_sound(self):
-        print(self.sound)
+        pass
+
+class Lion(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def make_sound(self):
+        print('roar')
+
+class Mouse(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)
+
+    def make_sound(self):
+        print('squeak')
 
 
-class Lista:
-    def __init__(self):
-        self.animals = []
-
-    @property
-    def get_lista(self) -> list:
-        return self.animals
-
-    def add(self, animal:Animal):
-        self.animals.append(animal)
-        return animal
-
+animals = [
+    Lion('Simba'),
+    Mouse('Mickey')
+]
 
 def animal_sound(animals: list):
     for animal in animals:
         animal.make_sound()
 
-cachorro = Animal(name = 'dog', sound = 'au')
-gato = Animal(name = 'cat', sound = 'miau')
-gato.make_sound()
-lista = Lista()
-lista.add(gato)
-lista.add(cachorro)
-animal_sound(lista.get_lista)
-
-#animal_sound(animals)
+animal_sound(animals)
 
 
 """
